@@ -18,24 +18,24 @@ def generate_hamiltonian_matrix(x_range, y_range, num_points, m, omega):
             index = i * num_points + j
 
             # Diagonal elements
-            hamiltonian_matrix[index, index] = -0.5 / (dx**2) - 0.5 / (dy**2) + harmonic_oscillator_potential(x, y, m, omega)
+            hamiltonian_matrix[index, index] = 0.5 / (dx**2) * 4 - 0.5 / (dy**2) + harmonic_oscillator_potential(x, y, m, omega)
 
             # Off-diagonal elements (finite difference approximation of Laplacian)
             if i > 0:
-                hamiltonian_matrix[index, index - num_points] = 0.5 / (dx**2)
+                hamiltonian_matrix[index, index - num_points] = -0.5 / (dx**2)
             if i < num_points - 1:
-                hamiltonian_matrix[index, index + num_points] = 0.5 / (dx**2)
+                hamiltonian_matrix[index, index + num_points] = -0.5 / (dx**2)
             if j > 0:
-                hamiltonian_matrix[index, index - 1] = 0.5 / (dy**2)
+                hamiltonian_matrix[index, index - 1] = -0.5 / (dy**2)
             if j < num_points - 1:
-                hamiltonian_matrix[index, index + 1] = 0.5 / (dy**2)
+                hamiltonian_matrix[index, index + 1] = -0.5 / (dy**2)
 
     return hamiltonian_matrix
 
 # Parameters
 x_range = (0, 1)
 y_range = (0, 1)
-num_points = 10
+num_points = 20
 m = 1.0
 omega = 1.0
 
@@ -67,4 +67,4 @@ for i in range(num_eigenvectors_to_plot):
     plt.title(f"Eigenvector {i+1}")
     plt.xlabel('x')
     plt.ylabel('y')
-    plt.show()
+    plt.imsave("EigenvectorHar_" + str(i+1) + ".eps", np.abs(eigenvector)**2, cmap='GnBu')  # Provide a valid file path

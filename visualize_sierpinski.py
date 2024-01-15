@@ -23,4 +23,5 @@ plt.imshow(matrix, cmap='binary', interpolation='nearest')
 #plt.grid(True, which='both', color='black', linewidth=1.5, linestyle='-', alpha=0.5)
 
 # Show the plot
-plt.savefig("Sierpinski_{}.png".format(k))
+#plt.savefig("Sierpinski_{}.eps".format(k))
+plt.show()
